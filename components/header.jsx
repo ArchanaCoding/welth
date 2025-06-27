@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button'
-import { LayoutDashboard } from 'lucide-react'
+import { LayoutDashboard, PenBox } from 'lucide-react'
 
 const Header = () => {
   return (
@@ -20,21 +20,21 @@ const Header = () => {
   
 
 
-      <div>
+      <div className='flex items-center space-x-4'>
         {/* More Actions when user is sign in */}
 
         <SignedIn>
-          <Link href={"/dashboard"}>
-          <Button className="cursor-pointer" variant="outline">
+          <Link href={"/dashboard"} className='text-grey-600 hover:text-blue-600 flex items-center gap-2 '>
+          <Button variant="outline" className="cursor-pointer">
             <LayoutDashboard size={18} />
             <span className="hidden md:inline">Dashboard</span>
           </Button>
           </Link>
 
            <Link href={"/transaction/create"}>
-          <Button className="cursor-pointer" variant="outline">
-            <LayoutDashboard size={18} />
-            <span className="hidden md:inline">Dashboard</span>
+          <Button className="cursor-pointer flex items-center gap-2">
+            <PenBox size={18} />
+            <span className="hidden md:inline">Add Transaction</span>
           </Button>
           </Link>
 
@@ -48,7 +48,11 @@ const Header = () => {
       </SignedOut>
       
       <SignedIn>
-        <UserButton />
+        <UserButton appearance={{
+          elements:{
+              avatarBox: "w-10 h-10"
+          }
+        }} />
       </SignedIn>
       </div>
 
