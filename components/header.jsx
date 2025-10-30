@@ -24,7 +24,7 @@ const Header = () => {
         {/* More Actions when user is sign in */}
 
         <SignedIn>
-          <Link href={"/dashboard"} className='text-grey-600 hover:text-blue-600 flex items-center gap-2 '>
+          <Link href={"/dashboard"} className='text-gray-600 hover:text-blue-600 flex items-center gap-2 '>
           <Button variant="outline" className="cursor-pointer">
             <LayoutDashboard size={18} />
             <span className="hidden md:inline">Dashboard</span>

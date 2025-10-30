@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] }) // will load only English letters
 
 export const metadata = {
   title: "Welth",
