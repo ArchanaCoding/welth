@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  clerkUserId String    @unique  // Clerk user ID
+  email     String    @unique
+  name      String?
+  imageUrl String?
+  transactions Transaction[] // refrencing transactions table
+  accounts  Account[]
+  budgets   Budget[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("users") // Map to "users" table in the database &  call this Table User to  "users"
+}
+
+model Account {
+  id        String    @id @default(uuid())
+  name      String
+  type      AccountType // it called enum that means it can have some limited values
+  balance   Decimal     @default(0) // will ask initial balance while creating an account
+  isDefault Boolean   @default(false) // only one account can be default account
+  userId    String
+  user      User      @relation(fields: [userId], references: [id]), onDelete: (Cascade) // references inside of user table we have .
+  // onDelete: (Cascade) > if the user is deleted all the accounts related to that user will be deleted as well
+  transactions Transaction[] // referencing transactions table
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId]) // Index(search) on userId for faster queries - in our DB when we will create an idex for the userId to have this acc - menas when we are trying to search for all the accounts for a perticular user id this will make the process much faster.
+  @@map("accounts") // Maping account table name to "accounts" in the database
+}
+
+enum AccountType {
+  CURRENT
+  SAVINGS
+}
+
+model Transaction {
+  id          String    @id @default(uuid())
+  type       TransactionType
+  amount      Decimal
+  description String?
+  date        DateTime
+  category   String
+  receiptUrl String?
+  isRecurring Boolean   @default(false)
+  recurringInterval RecurringInterval? // only used if  isRecurring is true 
+  nextRecurringDate DateTime? // Next date for recurring transaction
+  lastProcessedDate DateTime? // Last time this recurring transaction was processed
+  status     TransactionStatus @default(COMPLETED)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id]), onDelete: (Cascade) // references inside of user table we have .
+  // onDelete: (Cascade) > if the user is deleted all the transactions related to that user will be deleted as well
+  accountId   String
+  account     Account   @relation(fields: [accountId], references: [id]), onDelete: (Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([accountId]) // Index(search) on accountId for faster queries
+  @@index([userId]) // Index(search) on userId for faster queries
+  @@map("transactions") // Maping transaction table name to "transactions" in the database
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+enum RecurringInterval {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Budget {
+  id        String    @id @default(uuid())
+  amount    Decimal
+  lastAlertSent DateTime? // To track when the last alert was sent
+  userId    String
+  user      User      @relation(fields: [userId], references: [id]), onDelete: (Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId]) // Index(search) on userId for faster queries
+  @@map("budgets") // Maping budget table name to "budgets" in the database
+}

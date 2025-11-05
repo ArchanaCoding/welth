@@ -81,3 +81,20 @@ we have page.js - we impoted  **HeroSection**
 - The components that are rendered on the server — that is our backend, not on our client
 - run on the backend , Used for static or data-loading parts.
 - The code runs before it reaches the user’s browser — it runs on the hosting server (backend).
+
+## Created landing Page
+
+## Explain table
+
+
+### Install Prisma
+- Install and we will create all of the models for our DB.
+``` bash 
+npm install -D prisma --legacy-page-deps
+npx prisma init
+```
+- Now it will create prisma/schema.prisma to (**Define models**) and prisma.config.ts. 
+- It has taken DB url that we had set in .env.
+- Also we had set Direct url.
+- create all of the models for our DB.
+
