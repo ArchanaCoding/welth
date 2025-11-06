@@ -5,14 +5,13 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url      = env("DATABASE_URL") // For queries
+  directUrl = env("DIRECT_URL")   // For migrations
 }
 
 model User {
@@ -37,7 +36,7 @@ model Account {
   balance   Decimal     @default(0) // will ask initial balance while creating an account
   isDefault Boolean   @default(false) // only one account can be default account
   userId    String
-  user      User      @relation(fields: [userId], references: [id]), onDelete: (Cascade) // references inside of user table we have .
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   // onDelete: (Cascade) > if the user is deleted all the accounts related to that user will be deleted as well
   transactions Transaction[] // referencing transactions table
   createdAt DateTime  @default(now())
@@ -66,10 +65,10 @@ model Transaction {
   lastProcessedDate DateTime? // Last time this recurring transaction was processed
   status     TransactionStatus @default(COMPLETED)
   userId      String
-  user        User      @relation(fields: [userId], references: [id]), onDelete: (Cascade) // references inside of user table we have .
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade) // references inside of user table we have .
   // onDelete: (Cascade) > if the user is deleted all the transactions related to that user will be deleted as well
   accountId   String
-  account     Account   @relation(fields: [accountId], references: [id]), onDelete: (Cascade)
+  account     Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -99,7 +98,7 @@ model Budget {
   amount    Decimal
   lastAlertSent DateTime? // To track when the last alert was sent
   userId    String
-  user      User      @relation(fields: [userId], references: [id]), onDelete: (Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 

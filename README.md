@@ -82,9 +82,9 @@ we have page.js - we impoted  **HeroSection**
 - run on the backend , Used for static or data-loading parts.
 - The code runs before it reaches the user’s browser — it runs on the hosting server (backend).
 
-## Created landing Page
+### Created landing Page
 
-## Explain table
+### Explain table
 
 
 ### Install Prisma
@@ -96,5 +96,21 @@ npx prisma init
 - Now it will create prisma/schema.prisma to (**Define models**) and prisma.config.ts. 
 - It has taken DB url that we had set in .env.
 - Also we had set Direct url.
-- create all of the models for our DB.
+- create all of the models for our DB in Prisma file.
+``` bash 
+npx prisma migrate dev --name create-models
+npm i @prisma/client --legacy-peer-deps
+npx prisma migrate dev --name create-models
+```
+- it will create migration folder inside prisma - all sql tables 
+- Initializes prisma clinet
+- Next For Auth user logic in will store automatic datad in our DB. -> checkUser.js
+- created 404 own page
+**Note:**
+1. Dyanamic route - eg: app/(main)/account/page.jsx
+2. Catch-all route - eg: pages/shop/[...slug].js and the **url** > /shop/a also **param** {slug: ['a']}
+
+
+
+
 
