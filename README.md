@@ -109,7 +109,12 @@ npx prisma migrate dev --name create-models
 **Note:**
 1. Dyanamic route - eg: app/(main)/account/page.jsx
 2. Catch-all route - eg: pages/shop/[...slug].js and the **url** > /shop/a also **param** {slug: ['a']}
-
+3. Suspense -> This will show loading indicator / fallback UI
+``` bash
+npm i react-spinners --lagacy-peer--deps     
+```
+- It's provide us bunch of loders.
+4. 
 
 
 
