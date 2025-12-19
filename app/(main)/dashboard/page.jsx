@@ -5,7 +5,7 @@ const DashboardPage = () => {
     <div className='px-5'>
       {/* Budget Progress */}
 
-      {/* Overview for n Account */}
+      {/* Overview for Account */}
 
       {/* Accounts Grid */}
     </div>

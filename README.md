@@ -109,13 +109,21 @@ npx prisma migrate dev --name create-models
 **Note:**
 1. Dyanamic route - eg: app/(main)/account/page.jsx
 2. Catch-all route - eg: pages/shop/[...slug].js and the **url** > /shop/a also **param** {slug: ['a']}
-3. Suspense -> This will show loading indicator / fallback UI
+
+### Dashboard
+**A.** Suspense -> This will show loading indicator / fallback UI
 ``` bash
 npm i react-spinners --lagacy-peer--deps     
 ```
-- It's provide us bunch of loders.
-4. 
+- It's provide us bunch of loders - we are using **Bar Loader**
+**B.** DashboardPage - we will show our **budget progess**
 
-
+**C.** Now Create **Server Action** -> APIs
+- But in Next.js they are writeen just like normal function.
+- Earlier we need to write somthing like /api/holder and we have to create a seprate route.
+- Since Next.js 13 I belive we have the feature **Server Action**.
+- Create new folder **Action** and we can write server side logic.
+- file dashboard.js - server action for creating an **account** which will take some **data**.
+- "use server" - at the begning of the file.
 
 
