@@ -125,5 +125,12 @@ npm i react-spinners --lagacy-peer--deps
 - Create new folder **Action** and we can write server side logic.
 - file dashboard.js - server action for creating an **account** which will take some **data**.
 - "use server" - at the begning of the file.
+- Final UI -> CreateAccountDrawer
+``` bash 
+npm i react-hook-form zod @hookform/resolvers --legacy-per-deps
+```
+- react hook form -> Basically Manage a form
+- zod -> validation library which will be handle all the error and validation for our form.
+- hookform resolvers - helps us connect both of this.
 
 
